@@ -1,0 +1,58 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Define a struct that represents course at the university
+// - dept code
+// - the course number
+// - the title
+
+struct course {
+    string deptCode, title;
+    int courseNumber;
+};
+
+// Write a function that takes an array of structs and department as params,
+// and counts how many courses there are in in a given department
+
+// The function was build based on an assumption that each course entry is unique
+// due to fact that the courses array is small and created by one person
+// Should the array needed be significantly longer, I would consider adding a check to ensure that
+// the courses details are unique:
+// 1 - loop through the array of courses
+// 2 - create a new array of course structs
+// 3 - if the dept code is the same as the one provided, pass the course struct to the new array by value
+// 4 - loop through the new, smaller array to check for unique values
+// 5 - return the number of unique courses
+
+void courseNumInDepartment(course courseArray[], int numCourses, string department){
+    int numOfCourses = 0;
+    for (int i = 0; i < numCourses; i++){
+        if (courseArray[i].deptCode.compare(department) == 0){
+            numOfCourses++;
+        }
+    }
+    cout << "Number of different courses in dept " << department << ": " << numOfCourses << endl;
+}
+
+int main(){
+    // Declare an array of 10 course structs and fill them
+    const int numOfCourses = 10;
+    course courses[numOfCourses] = {
+        {"COMP","Introduction to computer science",1001},
+        {"COMP","Programming for dummies",1020},
+        {"BIOCHEM","Implants and their use",1120},
+        {"BIOCHEM","Household hemistry DIY",1810},
+        {"GEO","Navigation basics", 1003},
+        {"MATH", "So you think you can count",1004},
+        {"LIT","What author had in mind - analisys",1700},
+        {"BIOCHEM","Biolumescence - how to light a cat",1990},
+        {"ART","Everyone can paint",1790},
+        {"GEO","How to chart a map", 1008},
+    };
+    courseNumInDepartment(courses,numOfCourses,"BIOCHEM");
+    courseNumInDepartment(courses,numOfCourses,"ART");
+    courseNumInDepartment(courses,numOfCourses,"GEO");
+    return 0;
+}
